@@ -204,7 +204,9 @@ public class Film {
 		this.actor = actor;
 	}
 
-
+	public void displayMyway() { System.out.println("Film: " + this.title + " year " + this.releasYear + " rating " + this.rating + " actors " + this.actor);
+	}
+	
 	@Override
 	public String toString() {
 		return "Film [id=" + id + ", title=" + title + ", description=" + description + ", releasYear=" + releasYear
