@@ -42,7 +42,7 @@ public class Film {
 
 
 
-
+ 
 	public Film(int id, String title, String description, int releasYear, int languageId, int rentalDuration,
 			double rental_rate, int length, double replacement_cost, String rating, String specialFeatures,
 			ArrayList<Actor> actor) {
@@ -60,9 +60,6 @@ public class Film {
 		this.specialFeatures = specialFeatures;
 		this.actor = actor;
 	}
-
-
-
 
 	public int getId() {
 		return id;
@@ -204,7 +201,9 @@ public class Film {
 		this.actor = actor;
 	}
 
-	public void displayMyway() { System.out.println("Film: " + this.title + " year " + this.releasYear + " rating " + this.rating + " actors " + this.actor);
+	public void displayMyway() { System.out.println("Film: " + this.title + 
+			" Released in " + this.releasYear + " Rating " + this.rating + 
+			"\n Description: " + this.description);
 	}
 	
 	@Override

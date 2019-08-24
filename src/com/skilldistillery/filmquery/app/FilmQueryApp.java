@@ -58,19 +58,22 @@ public class FilmQueryApp {
 			int numb = input.nextInt();
 			Film film = db.findFilmById(numb);
 			film.displayMyway();
+			System.out.println("Actors:");
+			List<Actor> actors = db.findActorsByFilmId(numb);
+			for (Actor actor : actors) {
+				System.out.println(actor);
+			}
 			break;
 		case (2):
 			System.out.println("Please enter a keyword: ");
 			String kw = input.next();
 			List<Film> films = db.findFilmByKeyword(kw);
 			for (Film film2 : films) {
-				System.out.println(film2);	
-			}			
+				System.out.println(film2);
+			}
 			break;
 		case (0):
 			break;
 		}
-
 	}
-
 }
