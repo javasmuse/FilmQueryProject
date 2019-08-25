@@ -44,6 +44,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				film.setDescription(filmResult.getString(3));
 				film.setReleasYear(filmResult.getInt(4));
 				film.setRating(filmResult.getString(5));
+				film.setLanguage(filmResult.getString(6));
 
 			}
 
@@ -61,7 +62,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		try {
 			Connection conn = DriverManager.getConnection(url, userName, password);
 
-			String sql = "SELECT film.id, title, description, release_year, rating FROM film WHERE description LIKE ? OR title LIKE ?";
+			String sql = "SELECT film.id, title, description, release_year, rating, name FROM film JOIN language ON language.id = film.language_id WHERE description LIKE ? OR title LIKE ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
@@ -70,13 +71,15 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 			ResultSet filmResult = stmt.executeQuery();
 
+
 			while (filmResult.next()) {
-				Film film = new Film();
+				Film film = new Film(); 
 				film.setId(filmResult.getInt("id"));
 				film.setTitle(filmResult.getNString("title"));
 				film.setDescription(filmResult.getString("description"));
 				film.setReleasYear(filmResult.getInt("release_Year"));
 				film.setRating(filmResult.getString("rating"));
+				film.setLanguage(filmResult.getString("name"));
 				films.add(film);
 			}
 			filmResult.close();
@@ -86,32 +89,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			e.printStackTrace();
 		}
 		return films;
-	}
-
-	@Override
-	public Actor findActorById(int actorId) {
-		Actor actor = null;
-
-		try {
-
-			Connection conn = DriverManager.getConnection(url, userName, password);
-
-			String sql = "SELECT id, first_name, last_name FROM actor WHERE id = ?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, actorId);
-			ResultSet actorResult = stmt.executeQuery();
-			if (actorResult.next()) {
-				actor = new Actor();
-				actor.setId(actorResult.getInt(1));
-				actor.setFirstName(actorResult.getString(2));
-				actor.setLastName(actorResult.getString(3));
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return actor;
 	}
 
 	@Override
@@ -143,6 +120,12 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			e.printStackTrace();
 		}
 		return actors;
+	}
+
+	@Override
+	public Actor findActorById(int actorId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

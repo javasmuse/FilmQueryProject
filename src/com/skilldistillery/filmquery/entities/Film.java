@@ -8,6 +8,7 @@ public class Film {
 	private String description; 
 	private int releasYear;
 	private int languageId;
+	private String language; 
 	private int rentalDuration;
 	private double rental_rate;
 	private int length;
@@ -24,7 +25,7 @@ public class Film {
 
 	
 
-	public Film(int id, String title, String description, int releasYear, int languageId, int rentalDuration,
+	public Film(int id, String title, String description, int releasYear, int languageId, String language, int rentalDuration,
 			double rental_rate, int length, double replacement_cost, String rating, String specialFeatures) {
 		super();
 		this.id = id;
@@ -32,6 +33,7 @@ public class Film {
 		this.description = description;
 		this.releasYear = releasYear;
 		this.languageId = languageId;
+		this.language = language; 
 		this.rentalDuration = rentalDuration;
 		this.rental_rate = rental_rate;
 		this.length = length;
@@ -43,7 +45,7 @@ public class Film {
 
 
  
-	public Film(int id, String title, String description, int releasYear, int languageId, int rentalDuration,
+	public Film(int id, String title, String description, int releasYear, int languageId, String language, int rentalDuration,
 			double rental_rate, int length, double replacement_cost, String rating, String specialFeatures,
 			ArrayList<Actor> actor) {
 		super();
@@ -52,6 +54,7 @@ public class Film {
 		this.description = description;
 		this.releasYear = releasYear;
 		this.languageId = languageId;
+		this.language = language; 
 		this.rentalDuration = rentalDuration;
 		this.rental_rate = rental_rate;
 		this.length = length;
@@ -84,11 +87,14 @@ public class Film {
 	}
 
 
-
-	public int getLanguageId() {
-		return languageId;
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 
+
+	public String getLanguage() {
+		return language;
+	}
 
 
 	public int getRentalDuration() {
@@ -156,7 +162,11 @@ public class Film {
 	}
 
 
-
+	public int getLanguageId() {
+		return languageId;
+	}
+	
+	
 	public void setRentalDuration(int rentalDuration) {
 		this.rentalDuration = rentalDuration;
 	}
@@ -202,7 +212,7 @@ public class Film {
 	}
 
 	public void displayMyway() { System.out.println("\nFilm: " + this.title + 
-			" Released in " + this.releasYear + " Rating " + this.rating + 
+			" Released in " + this.releasYear + " Rating " + this.rating + " Language " + this.language + 
 			"\n Description: " + this.description);
 	}
 	
