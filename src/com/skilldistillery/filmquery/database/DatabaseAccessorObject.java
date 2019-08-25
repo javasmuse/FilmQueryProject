@@ -33,7 +33,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		try {
 			Connection conn = DriverManager.getConnection(url, userName, password);
 			String sql = "SELECT film.id, title, description, release_year, rating, name FROM film JOIN language ON language.id = film.language_id WHERE film.id = ?";
-					
+
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, filmId);
 			ResultSet filmResult = stmt.executeQuery();
@@ -44,7 +44,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				film.setDescription(filmResult.getString(3));
 				film.setReleasYear(filmResult.getInt(4));
 				film.setRating(filmResult.getString(5));
-				
+
 			}
 
 		} catch (SQLException e) {
@@ -60,20 +60,23 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 		try {
 			Connection conn = DriverManager.getConnection(url, userName, password);
-			
-			String sql = "SELECT title, description FROM film WHERE description LIKE ? OR title LIKE ?";
-			
+
+			String sql = "SELECT film.id, title, description, release_year, rating FROM film WHERE description LIKE ? OR title LIKE ?";
+
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			
-			stmt.setString(1, "%"+filmTitle+"%");
-			stmt.setString(2, "%"+filmTitle+"%");
-			
+
+			stmt.setString(1, "%" + filmTitle + "%");
+			stmt.setString(2, "%" + filmTitle + "%");
+
 			ResultSet filmResult = stmt.executeQuery();
 
 			while (filmResult.next()) {
 				Film film = new Film();
-				film.setTitle(filmResult.getString("title"));
-				film.setTitle(filmResult.getString("description"));
+				film.setId(filmResult.getInt("id"));
+				film.setTitle(filmResult.getNString("title"));
+				film.setDescription(filmResult.getString("description"));
+				film.setReleasYear(filmResult.getInt("release_Year"));
+				film.setRating(filmResult.getString("rating"));
 				films.add(film);
 			}
 			filmResult.close();
@@ -82,9 +85,8 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	return films;
+		return films;
 	}
-	
 
 	@Override
 	public Actor findActorById(int actorId) {
@@ -127,7 +129,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			ResultSet actorResult = stmt.executeQuery();
 
 			while (actorResult.next()) {
-				Actor actor = new Actor(); 
+				Actor actor = new Actor();
 				actor.setId(actorResult.getInt(1));
 				actor.setFirstName(actorResult.getNString(2));
 				actor.setLastName(actorResult.getNString(3));

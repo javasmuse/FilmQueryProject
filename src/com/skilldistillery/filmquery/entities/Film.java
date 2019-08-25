@@ -201,7 +201,7 @@ public class Film {
 		this.actor = actor;
 	}
 
-	public void displayMyway() { System.out.println("Film: " + this.title + 
+	public void displayMyway() { System.out.println("\nFilm: " + this.title + 
 			" Released in " + this.releasYear + " Rating " + this.rating + 
 			"\n Description: " + this.description);
 	}
