@@ -32,19 +32,27 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 		try {
 			Connection conn = DriverManager.getConnection(url, userName, password);
-			String sql = "SELECT film.id, title, description, release_year, rating, name FROM film JOIN language ON language.id = film.language_id WHERE film.id = ?";
+			String sql = "SELECT film.id, title, description, release_year, language_id, rental_duration, rental_rate, "
+					+ "length, replacement_cost, special_features, rating, name FROM film JOIN language "
+					+ "ON language.id = film.language_id WHERE film.id = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, filmId);
 			ResultSet filmResult = stmt.executeQuery();
 			if (filmResult.next()) {
 				film = new Film();
-				film.setId(filmResult.getInt(1));
-				film.setTitle(filmResult.getString(2));
-				film.setDescription(filmResult.getString(3));
-				film.setReleasYear(filmResult.getInt(4));
-				film.setRating(filmResult.getString(5));
-				film.setLanguage(filmResult.getString(6));
+				film.setId(filmResult.getInt("id"));
+				film.setTitle(filmResult.getString("title"));
+				film.setDescription(filmResult.getString("description"));
+				film.setReleasYear(filmResult.getInt("release_Year"));
+				film.setLanguageId(filmResult.getInt("language_id"));
+				film.setLanguage(filmResult.getString("name"));
+				film.setRentalDuration(filmResult.getInt("rental_duration"));
+				film.setRental_rate(filmResult.getDouble("rental_rate"));
+				film.setLength(filmResult.getInt("length"));
+				film.setReplacement_cost(filmResult.getDouble("replacement_cost"));
+				film.setRating(filmResult.getString("rating"));
+				film.setSpecialFeatures(filmResult.getString("special_features"));
 
 			}
 
@@ -62,7 +70,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		try {
 			Connection conn = DriverManager.getConnection(url, userName, password);
 
-			String sql = "SELECT title, description, release_year, rating FROM film WHERE description LIKE ? OR title LIKE ?";
+			String sql = "SELECT id, title, description, release_year, rating FROM film WHERE description LIKE ? OR title LIKE ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
@@ -74,11 +82,19 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 			while (filmResult.next()) {
 				Film film = new Film(); 
-				film.setTitle(filmResult.getNString("title"));
+				film.setId(filmResult.getInt("id"));
+				film.setTitle(filmResult.getString("title"));
 				film.setDescription(filmResult.getString("description"));
 				film.setReleasYear(filmResult.getInt("release_Year"));
+				film.setLanguageId(filmResult.getInt("languageId"));
+				film.setRentalDuration(filmResult.getInt("rentalDuration"));
+				film.setRental_rate(filmResult.getDouble("rental_rate"));
+				film.setLength(filmResult.getInt("length"));
+				film.setReplacement_cost(filmResult.getDouble("replacement_cost"));
 				film.setRating(filmResult.getString("rating"));
+				film.setSpecialFeatures(filmResult.getString("specialFeatures"));
 				films.add(film);
+				
 			}
 			filmResult.close();
 			stmt.close();

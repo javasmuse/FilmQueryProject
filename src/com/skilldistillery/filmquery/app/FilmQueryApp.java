@@ -64,6 +64,17 @@ public class FilmQueryApp {
 				for (Actor actor : actors) {
 					System.out.println(actor);
 				}
+				System.out.println("\nWould you like to see every little detail about the film? (Press 1 for details / 0 for main menu)");
+				int extra = input.nextInt();
+				switch (extra) {
+				case (1) : 
+					film.displayDetailed();
+					break;
+				case (0) : 
+				default :
+					launch(); 
+				}
+				
 				if (numb < 0) {
 					System.out.println("Sorry there are only 1000 films available, please try again.");
 					System.out.println();
