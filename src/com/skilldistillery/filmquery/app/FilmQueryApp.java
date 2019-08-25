@@ -56,12 +56,23 @@ public class FilmQueryApp {
 		case (1):
 			System.out.println("Please enter an id: ");
 			int numb = input.nextInt();
-			Film film = db.findFilmById(numb);
-			film.displayMyway();
-			System.out.println("Actors:");
-			List<Actor> actors = db.findActorsByFilmId(numb);
-			for (Actor actor : actors) {
-				System.out.println(actor);
+			if (numb < 1001) {
+				Film film = db.findFilmById(numb);
+				film.displayMyway();
+				System.out.println("Actors:");
+				List<Actor> actors = db.findActorsByFilmId(numb);
+				for (Actor actor : actors) {
+					System.out.println(actor);
+				}
+				if (numb < 0) {
+					System.out.println("Sorry there are only 1000 films available, please try again.");
+					System.out.println();
+					System.out.println();
+					launch();
+				}
+			} else {
+				System.out.println("Sorry there are only 1000 films available, please try again.");
+				launch();
 			}
 			break;
 		case (2):
@@ -77,9 +88,40 @@ public class FilmQueryApp {
 					System.out.println(act);
 				}
 			}
+			if (films.isEmpty()) {
+				System.out.println();
+				System.out.println();
+				System.out.println("Sorry, I didn't understand your request. Please try again.");
+				System.out.println();
+				System.out.println();
+				launch();
+			} else {
+				System.out.println();
+				System.out.println();
+				launch();
+			}
+			break;
+		case (0):
+			System.out.println("Are you sure?");
+			break;
+		default:
+			launch();
+			break;
+		}
+
+		System.out.println("\n\nWould you like to try again? (press 1 for Yes / 0 for No)");
+		int rePlay = input.nextInt();
+		switch (rePlay) {
+		case (1):
+			System.out.println();
+			System.out.println();
+			launch();
 			break;
 		case (0):
 			break;
+		default:
+			System.out.println("Sorry, I didn't get that. Game Over.");
 		}
 	}
+
 }
