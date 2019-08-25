@@ -80,25 +80,19 @@ public class FilmQueryApp {
 			String kw = input.next();
 			List<Film> films = db.findFilmByKeyword(kw);
 			for (Film film2 : films) {
-				film2.displayMyway();
-				int fID = film2.getId();
-				System.out.println("Actors:");
-				List<Actor> actors2 = db.findActorsByFilmId(fID);
-				for (Actor act : actors2) {
-					System.out.println(act);
+				film2.displayMyway2();
 				}
-			}
 			if (films.isEmpty()) {
 				System.out.println();
 				System.out.println();
-				System.out.println("Sorry, I didn't understand your request. Please try again.");
+				System.out.println("Sorry, I couldn't find a match for " + kw);
 				System.out.println();
 				System.out.println();
-				launch();
-			} else {
-				System.out.println();
-				System.out.println();
-				launch();
+//				launch();
+//			} else {
+//				System.out.println();
+//				System.out.println();
+//				launch();
 			}
 			break;
 		case (0):
@@ -121,6 +115,7 @@ public class FilmQueryApp {
 			break;
 		default:
 			System.out.println("Sorry, I didn't get that. Game Over.");
+			break;
 		}
 	}
 

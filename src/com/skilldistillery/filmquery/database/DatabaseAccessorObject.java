@@ -62,7 +62,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		try {
 			Connection conn = DriverManager.getConnection(url, userName, password);
 
-			String sql = "SELECT film.id, title, description, release_year, rating, name FROM film JOIN language ON language.id = film.language_id WHERE description LIKE ? OR title LIKE ?";
+			String sql = "SELECT title, description, release_year, rating FROM film WHERE description LIKE ? OR title LIKE ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
@@ -74,12 +74,10 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 			while (filmResult.next()) {
 				Film film = new Film(); 
-				film.setId(filmResult.getInt("id"));
 				film.setTitle(filmResult.getNString("title"));
 				film.setDescription(filmResult.getString("description"));
 				film.setReleasYear(filmResult.getInt("release_Year"));
 				film.setRating(filmResult.getString("rating"));
-				film.setLanguage(filmResult.getString("name"));
 				films.add(film);
 			}
 			filmResult.close();
@@ -124,7 +122,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 	@Override
 	public Actor findActorById(int actorId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

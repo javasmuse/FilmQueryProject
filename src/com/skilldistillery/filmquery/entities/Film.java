@@ -216,6 +216,12 @@ public class Film {
 			"\n Description: " + this.description);
 	}
 	
+	public void displayMyway2() { System.out.println("\nFilm: " + this.title + 
+			" Released in " + this.releasYear + " Rating " + this.rating + 
+			"\n Description: " + this.description);
+		
+	}
+	
 	@Override
 	public String toString() {
 		return "Film [id=" + id + ", title=" + title + ", description=" + description + ", releasYear=" + releasYear
