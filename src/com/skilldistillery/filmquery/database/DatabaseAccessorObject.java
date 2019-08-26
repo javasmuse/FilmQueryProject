@@ -21,7 +21,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -35,7 +34,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			String sql = "SELECT film.id, title, description, release_year, language_id, rental_duration, rental_rate, "
 					+ "length, replacement_cost, special_features, rating, name FROM film JOIN language "
 					+ "ON language.id = film.language_id WHERE film.id = ?";
-
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, filmId);
 			ResultSet filmResult = stmt.executeQuery();
@@ -53,9 +51,34 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				film.setReplacement_cost(filmResult.getDouble("replacement_cost"));
 				film.setRating(filmResult.getString("rating"));
 				film.setSpecialFeatures(filmResult.getString("special_features"));
-
 			}
+			filmResult.close();
+			stmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
+		return film;
+	}
+
+	public Film findCategory(int filmId) {
+		Film film = null;
+
+		try {
+			Connection conn = DriverManager.getConnection(url, userName, password);
+			String sql = "SELECT name FROM category JOIN film_category ON category_id = film_category.category_id "
+					+ "JOIN film ON film_category.film_id = film.id WHERE film.id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, filmId);
+			ResultSet filmResult = stmt.executeQuery();
+			if (filmResult.next()) {
+				film = new Film();
+				film.setCategory(filmResult.getNString("name"));
+			}
+			filmResult.close();
+			stmt.close();
+			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -79,22 +102,15 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 			ResultSet filmResult = stmt.executeQuery();
 
-
 			while (filmResult.next()) {
-				Film film = new Film(); 
+				Film film = new Film();
 				film.setId(filmResult.getInt("id"));
 				film.setTitle(filmResult.getString("title"));
 				film.setDescription(filmResult.getString("description"));
 				film.setReleasYear(filmResult.getInt("release_Year"));
-				film.setLanguageId(filmResult.getInt("languageId"));
-				film.setRentalDuration(filmResult.getInt("rentalDuration"));
-				film.setRental_rate(filmResult.getDouble("rental_rate"));
-				film.setLength(filmResult.getInt("length"));
-				film.setReplacement_cost(filmResult.getDouble("replacement_cost"));
 				film.setRating(filmResult.getString("rating"));
-				film.setSpecialFeatures(filmResult.getString("specialFeatures"));
 				films.add(film);
-				
+
 			}
 			filmResult.close();
 			stmt.close();

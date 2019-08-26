@@ -56,7 +56,13 @@ public class FilmQueryApp {
 		case (1):
 			System.out.println("Please enter an id: ");
 			int numb = input.nextInt();
-			if (numb < 1001) {
+			if (numb < 1 || numb > 1000) {
+				System.out.println(
+						"Sorry there are only 1000 films available, please select an id between 1 and 1000 and try again.\n\n");
+				System.out.println();
+				System.out.println();
+				launch();
+			} else {
 				Film film = db.findFilmById(numb);
 				film.displayMyway();
 				System.out.println("Actors:");
@@ -64,70 +70,58 @@ public class FilmQueryApp {
 				for (Actor actor : actors) {
 					System.out.println(actor);
 				}
-				System.out.println("\nWould you like to see every little detail about the film? (Press 1 for details / 0 for main menu)");
+				System.out.println(
+						"\nWould you like to see every little detail about the film? (Press 1 for details / 0 for main menu)");
 				int extra = input.nextInt();
 				switch (extra) {
-				case (1) : 
+				case (1):
 					film.displayDetailed();
+					Film film2 = db.findCategory(numb);
+					film2.displayCategory();
+					System.out.println("\n\nBack to the main, you can exit from here or submit another query.\n\n");
+					launch();
 					break;
-				case (0) : 
-				default :
-					launch(); 
-				}
-				
-				if (numb < 0) {
-					System.out.println("Sorry there are only 1000 films available, please try again.");
-					System.out.println();
-					System.out.println();
+				case (0):
+					launch();
+					break;
+				default:
+					System.out.println("I didn't understand your entry, please start again. \n\n");
 					launch();
 				}
-			} else {
-				System.out.println("Sorry there are only 1000 films available, please try again.");
-				launch();
+				break;
 			}
-			break;
 		case (2):
 			System.out.println("Please enter a keyword: ");
 			String kw = input.next();
 			List<Film> films = db.findFilmByKeyword(kw);
 			for (Film film2 : films) {
 				film2.displayMyway2();
-				}
+			}
+
 			if (films.isEmpty()) {
 				System.out.println();
 				System.out.println();
 				System.out.println("Sorry, I couldn't find a match for " + kw);
+				System.out.println("Let's start over.");
 				System.out.println();
-				System.out.println();
-//				launch();
-//			} else {
-//				System.out.println();
-//				System.out.println();
-//				launch();
+				launch();
 			}
+			System.out.println("\n\nBack to the main, you can exit from here are submit another query.\n\n");
+			launch();
 			break;
 		case (0):
-			System.out.println("Are you sure?");
+			System.out.println("See ya later, alligator\n");
+			shutDown();
 			break;
 		default:
+			System.out.println("I didn't understand your entry, please start again. \n\n");
 			launch();
 			break;
 		}
 
-		System.out.println("\n\nWould you like to try again? (press 1 for Yes / 0 for No)");
-		int rePlay = input.nextInt();
-		switch (rePlay) {
-		case (1):
-			System.out.println();
-			System.out.println();
-			launch();
-			break;
-		case (0):
-			break;
-		default:
-			System.out.println("Sorry, I didn't get that. Game Over.");
-			break;
-		}
 	}
 
+	public void shutDown() {
+		System.out.println("That's All Folks!");
+	}
 }

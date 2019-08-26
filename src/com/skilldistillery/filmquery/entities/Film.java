@@ -4,36 +4,34 @@ import java.util.ArrayList;
 
 public class Film {
 	private int id;
-	private String title; 
-	private String description; 
+	private String title;
+	private String description;
 	private int releasYear;
 	private int languageId;
-	private String language; 
+	private String language;
 	private int rentalDuration;
 	private double rental_rate;
 	private int length;
-	private double replacement_cost; 
+	private double replacement_cost;
 	private String rating;
 	private String specialFeatures;
-	private ArrayList <Actor> actor = new ArrayList<>(); 
-	
-	
-	
+	private String category;
+	private ArrayList<Actor> actor = new ArrayList<>();
+
 	public Film() {
 	}
 
-
-	
-
-	public Film(int id, String title, String description, int releasYear, int languageId, String language, int rentalDuration,
-			double rental_rate, int length, double replacement_cost, String rating, String specialFeatures) {
+	public Film(int id, String title, String category, String description, int releasYear, int languageId,
+			String language, int rentalDuration, double rental_rate, int length, double replacement_cost, String rating,
+			String specialFeatures) {
 		super();
 		this.id = id;
 		this.title = title;
+		this.category = category;
 		this.description = description;
 		this.releasYear = releasYear;
 		this.languageId = languageId;
-		this.language = language; 
+		this.language = language;
 		this.rentalDuration = rentalDuration;
 		this.rental_rate = rental_rate;
 		this.length = length;
@@ -42,19 +40,17 @@ public class Film {
 		this.specialFeatures = specialFeatures;
 	}
 
-
-
- 
-	public Film(int id, String title, String description, int releasYear, int languageId, String language, int rentalDuration,
-			double rental_rate, int length, double replacement_cost, String rating, String specialFeatures,
-			ArrayList<Actor> actor) {
+	public Film(int id, String title, String category, String description, int releasYear, int languageId,
+			String language, int rentalDuration, double rental_rate, int length, double replacement_cost, String rating,
+			String specialFeatures, ArrayList<Actor> actor) {
 		super();
 		this.id = id;
 		this.title = title;
+		this.category = category;
 		this.description = description;
 		this.releasYear = releasYear;
 		this.languageId = languageId;
-		this.language = language; 
+		this.language = language;
 		this.rentalDuration = rentalDuration;
 		this.rental_rate = rental_rate;
 		this.length = length;
@@ -68,165 +64,138 @@ public class Film {
 		return id;
 	}
 
-
-
 	public String getTitle() {
 		return title;
 	}
 
+	public String getCategory() {
+		return category;
+	}
 
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
 	public String getDescription() {
 		return description;
 	}
 
-
-
 	public int getReleasYear() {
 		return releasYear;
 	}
-
 
 	public void setLanguage(String language) {
 		this.language = language;
 	}
 
-
 	public String getLanguage() {
 		return language;
 	}
-
 
 	public int getRentalDuration() {
 		return rentalDuration;
 	}
 
-
-
 	public double getRental_rate() {
 		return rental_rate;
 	}
-
-
 
 	public int getLength() {
 		return length;
 	}
 
-
-
 	public double getReplacement_cost() {
 		return replacement_cost;
 	}
-
-
 
 	public String getRating() {
 		return rating;
 	}
 
-
-
 	public String getSpecialFeatures() {
 		return specialFeatures;
 	}
-
-
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
-
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
-
 
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-
-
 	public void setReleasYear(int releasYear) {
 		this.releasYear = releasYear;
 	}
-
-
 
 	public void setLanguageId(int languageId) {
 		this.languageId = languageId;
 	}
 
-
 	public int getLanguageId() {
 		return languageId;
 	}
-	
-	
+
 	public void setRentalDuration(int rentalDuration) {
 		this.rentalDuration = rentalDuration;
 	}
-
-
 
 	public void setRental_rate(double rental_rate) {
 		this.rental_rate = rental_rate;
 	}
 
-
-
 	public void setLength(int length) {
 		this.length = length;
 	}
-
-
 
 	public void setReplacement_cost(double replacement_cost) {
 		this.replacement_cost = replacement_cost;
 	}
 
-
-
 	public void setRating(String rating) {
 		this.rating = rating;
 	}
-
-
 
 	public void setSpecialFeatures(String specialFeatures) {
 		this.specialFeatures = specialFeatures;
 	}
 
-
 	public ArrayList<Actor> getActor() {
 		return actor;
 	}
-
 
 	public void setActor(ArrayList<Actor> actor) {
 		this.actor = actor;
 	}
 
-	public void displayMyway() { System.out.println("\nFilm: " + this.title + 
-			" Released in " + this.releasYear + " Rating " + this.rating + " Language " + this.language + 
-			"\n Description: " + this.description);
+	public void displayMyway() {
+		System.out.println("\nFilm: " + this.title + " Released in " + this.releasYear + " Rating " + this.rating
+				+ " Language " + this.language + "\n Description: " + this.description);
 	}
-	
-	public void displayMyway2() { System.out.println("\nFilm: " + this.title + 
-			" Released in " + this.releasYear + " Rating " + this.rating + 
-			"\n Description: " + this.description);
-		
+
+	public void displayMyway2() {
+		System.out.println("\nFilm: " + this.title + " Released in " + this.releasYear + " Rating " + this.rating
+				+ "\n Description: " + this.description);
+
 	}
-	
-	public void displayDetailed() { System.out.println("\n You got it, every little detail:\n \nID # " + this.id + " " +
-	this.title + " " + this.description + "\nReleased in " + this.releasYear + "\tLanguage ID " + this.languageId + "\nYou may keep it for " + this.rentalDuration + " days at a cost of: $" 
-			+ this.rental_rate + "\nFilm length: " + this.length + " minutes\nIf you lose or damage it, please pay $" + this.replacement_cost + "\nRating: " + this.rating + "\t with Special Features: " 
-	+ this.specialFeatures + "\n\n Without dipping into other tables, that's it for film details! ");
+
+	public void displayDetailed() {
+		System.out.println("\n You got it, every little detail:\n \nID # " + this.id + " " + this.title + " "
+				+ this.description + "\nReleased in " + this.releasYear + "\tLanguage ID " + this.languageId
+				+ "\nYou may keep it for " + this.rentalDuration + " days at a cost of: $" + this.rental_rate
+				+ "\nFilm length: " + this.length + " minutes\nIf you lose or damage it, please pay $"
+				+ this.replacement_cost + "\nRating: " + this.rating + "\t with Special Features: "
+				+ this.specialFeatures);
 	}
+
+	public void displayCategory() {
+		System.out.println("Category(ies): " + this.category + "\n\n");
+	}
+
 	@Override
 	public String toString() {
 		return "Film [id=" + id + ", title=" + title + ", description=" + description + ", releasYear=" + releasYear
@@ -234,7 +203,6 @@ public class Film {
 				+ ", length=" + length + ", replacement_cost=" + replacement_cost + ", rating=" + rating
 				+ ", specialFeatures=" + specialFeatures + ", actor=" + actor + "]";
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -257,7 +225,6 @@ public class Film {
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -310,6 +277,4 @@ public class Film {
 		return true;
 	}
 
-
 }
-
