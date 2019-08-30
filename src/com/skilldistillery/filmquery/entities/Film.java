@@ -174,12 +174,12 @@ public class Film {
 
 	public void displayMyway() {
 		System.out.println("\nFilm: " + this.title + " Released in " + this.releasYear + " Rating " + this.rating
-				+ " Language " + this.language + "\n Description: " + this.description);
+				+ " Language " + this.language + "\n Description: " + this.description + "\n\n");
 	}
 
 	public void displayMyway2() {
 		System.out.println("\nFilm: " + this.title + " Released in " + this.releasYear + " Rating " + this.rating
-				+ "\n Description: " + this.description);
+				+ "\n Description: " + this.description + "\n\n");
 
 	}
 
@@ -189,7 +189,7 @@ public class Film {
 				+ "\nYou may keep it for " + this.rentalDuration + " days at a cost of: $" + this.rental_rate
 				+ "\nFilm length: " + this.length + " minutes\nIf you lose or damage it, please pay $"
 				+ this.replacement_cost + "\nRating: " + this.rating + "\t with Special Features: "
-				+ this.specialFeatures);
+				+ this.specialFeatures + "\n\n");
 	}
 
 	public void displayCategory() {

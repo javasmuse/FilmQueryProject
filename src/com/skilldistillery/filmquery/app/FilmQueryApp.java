@@ -11,6 +11,7 @@ import com.skilldistillery.filmquery.entities.Film;
 public class FilmQueryApp {
 
 	DatabaseAccessor db = new DatabaseAccessorObject();
+	boolean keepGoing = true; 
 
 	public static void main(String[] args) {
 		FilmQueryApp app = new FilmQueryApp();
@@ -40,6 +41,8 @@ public class FilmQueryApp {
 
 	private void startUserInterface(Scanner input) {
 
+		do {
+			
 		System.out.println("                *************   Welcome to Lewy's Omniplex   *************");
 		System.out.println(
 				"****************************                                  ************************************");
@@ -51,27 +54,29 @@ public class FilmQueryApp {
 		System.out.println("Look up a film by a keyword (2)");
 		System.out.println("Exit application (0)");
 		int choice = input.nextInt();
-
+		
 		switch (choice) {
 		case (1):
 			System.out.println("Please enter an id: ");
 			int numb = input.nextInt();
-			if (numb < 1 || numb > 1000) {
-				System.out.println(
-						"Sorry there are only 1000 films available, please select an id between 1 and 1000 and try again.\n\n");
-				System.out.println();
-				System.out.println();
-				launch();
-			} else {
-				Film film = db.findFilmById(numb);
+			
+			Film film = db.findFilmById(numb);
+			if (film == null) {
+				System.out.println("Sorry, I can't find a film with that id. Please try again.\n\n");
+				keepGoing = true; 
+				break;
+			} else { 
+				
 				film.displayMyway();
+				
 				System.out.println("Actors:");
 				List<Actor> actors = db.findActorsByFilmId(numb);
 				for (Actor actor : actors) {
 					System.out.println(actor);
-				}
+				}   
+				
 				System.out.println(
-						"\nWould you like to see every little detail about the film? (Press 1 for details / 0 for main menu)");
+						"\nWould you like to see every little detail about the film? (Press 1 for details / 0 for main menu)\n\n");
 				int extra = input.nextInt();
 				switch (extra) {
 				case (1):
@@ -79,17 +84,20 @@ public class FilmQueryApp {
 					Film film2 = db.findCategory(numb);
 					film2.displayCategory();
 					System.out.println("\n\nBack to the main, you can exit from here or submit another query.\n\n");
-					launch();
+					keepGoing = true; 
 					break;
-				case (0):
-					launch();
+				case (0):    
+					keepGoing = true; 
 					break;
 				default:
 					System.out.println("I didn't understand your entry, please start again. \n\n");
-					launch();
+					keepGoing = true; 
+					break; 
 				}
-				break;
 			}
+			
+				break;
+		
 		case (2):
 			System.out.println("Please enter a keyword: ");
 			String kw = input.next();
@@ -102,26 +110,24 @@ public class FilmQueryApp {
 				System.out.println();
 				System.out.println();
 				System.out.println("Sorry, I couldn't find a match for " + kw);
-				System.out.println("Let's start over.");
+				System.out.println("Let's start over.\n\n");
 				System.out.println();
-				launch();
+				keepGoing = true; 
 			}
-			System.out.println("\n\nBack to the main, you can exit from here are submit another query.\n\n");
-			launch();
+			keepGoing = true; 
 			break;
 		case (0):
 			System.out.println("See ya later, alligator\n");
-			shutDown();
+			keepGoing = false; 
 			break;
 		default:
 			System.out.println("I didn't understand your entry, please start again. \n\n");
-			launch();
+			keepGoing = true; 
 			break;
-		}
+		}  
+} while (keepGoing); 	
 
-	}
 
-	public void shutDown() {
-		System.out.println("That's All Folks!");
-	}
+}
+	
 }
